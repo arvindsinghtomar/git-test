@@ -1,3 +1,4 @@
 # Git Test
 ## Learning git
-git clone
+1.git clone repository
+2.git config --global user.name
