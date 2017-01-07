@@ -1,0 +1,1 @@
+console.log('product from ft3');
