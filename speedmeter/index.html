@@ -16,6 +16,16 @@
 var app = angular.module('rzSliderDemo', ['rzModule', 'ui.bootstrap']);
 
 app.controller('MainCtrl', function ($scope, $rootScope, $timeout, $modal) {
+    // starting values
+    $scope.paymentStart = 0;
+    $scope.paymentEnd = 10000;
+
+    $scope.termStart = 24;
+    $scope.termEnd = 110;
+
+    $scope.montlyStart = 0;
+    $scope.montlyEnd = 1000;
+
     //Down payment
     $scope.loadPaymentChart = loadPaymentChart;
     $scope.changePaymentPoint = changePaymentPoint;
@@ -24,8 +34,8 @@ app.controller('MainCtrl', function ($scope, $rootScope, $timeout, $modal) {
     $scope.payment_slider_callbacks = {
         value: 0,
         options: {
-            floor: 0,
-            ceil: 200,
+            floor: $scope.paymentStart,
+            ceil: $scope.paymentEnd,
             onStart: function () {
                 $scope.paymentData.start = 0;
             },
@@ -91,8 +101,8 @@ app.controller('MainCtrl', function ($scope, $rootScope, $timeout, $modal) {
 
             // the value axis
             yAxis: {
-                min: 0,
-                max: 200,
+                min: $scope.paymentStart,
+                max: $scope.paymentEnd,
 
                 minorTickInterval: 'auto',
                 minorTickWidth: 1,
@@ -104,26 +114,18 @@ app.controller('MainCtrl', function ($scope, $rootScope, $timeout, $modal) {
                 tickWidth: 2,
                 tickPosition: 'inside',
                 tickLength: 10,
-                tickColor: '#666',
+                tickColor: '#FFF',
                 labels: {
                     step: 2,
                     rotation: 'auto'
                 },
                 title: {
-                    text: 'km/h'
+                    text: ''
                 },
                 plotBands: [{
-                    from: 0,
-                    to: 120,
-                    color: '#55BF3B' // green
-                }, {
-                    from: 120,
-                    to: 160,
-                    color: '#DDDF0D' // yellow
-                }, {
-                    from: 160,
-                    to: 200,
-                    color: '#DF5353' // red
+                    from: $scope.paymentStart,
+                    to: $scope.paymentEnd,
+                    color: '#000' // green
                 }]
             },
 
@@ -145,12 +147,6 @@ app.controller('MainCtrl', function ($scope, $rootScope, $timeout, $modal) {
         });
     }
 
-    function changePaymentPoint() {
-      var point = $scope.paymentChart.series[0].points[0];
-      $scope.paymentData.change = $scope.payment_slider_callbacks.value;
-      point.update($scope.payment_slider_callbacks.value);
-    }
-
     $scope.loadPaymentChart();
 
 
@@ -160,10 +156,10 @@ app.controller('MainCtrl', function ($scope, $rootScope, $timeout, $modal) {
     $scope.termChart = null;
 
     $scope.term_slider_callbacks = {
-        value: 0,
+        value: 24,
         options: {
-            floor: 0,
-            ceil: 200,
+            floor: $scope.termStart,
+            ceil: $scope.termEnd,
             onStart: function () {
                 $scope.termData.start = 0;
             },
@@ -229,8 +225,8 @@ app.controller('MainCtrl', function ($scope, $rootScope, $timeout, $modal) {
 
             // the value axis
             yAxis: {
-                min: 0,
-                max: 200,
+                min: $scope.termStart,
+                max: $scope.termEnd,
 
                 minorTickInterval: 'auto',
                 minorTickWidth: 1,
@@ -242,26 +238,18 @@ app.controller('MainCtrl', function ($scope, $rootScope, $timeout, $modal) {
                 tickWidth: 2,
                 tickPosition: 'inside',
                 tickLength: 10,
-                tickColor: '#666',
+                tickColor: '#fff',
                 labels: {
                     step: 2,
                     rotation: 'auto'
                 },
                 title: {
-                    text: 'km/h'
+                    text: ''
                 },
                 plotBands: [{
-                    from: 0,
-                    to: 120,
-                    color: '#55BF3B' // green
-                }, {
-                    from: 120,
-                    to: 160,
-                    color: '#DDDF0D' // yellow
-                }, {
-                    from: 160,
-                    to: 200,
-                    color: '#DF5353' // red
+                    from: $scope.termStart,
+                    to: $scope.termEnd,
+                    color: '#000' // green
                 }]
             },
 
@@ -283,15 +271,9 @@ app.controller('MainCtrl', function ($scope, $rootScope, $timeout, $modal) {
         });
     }
 
-    function changeTermPoint() {
-      var point = $scope.termChart.series[0].points[0];
-      $scope.termData.change = $scope.term_slider_callbacks.value;
-      point.update($scope.term_slider_callbacks.value);
-    }
-
     $scope.loadTermChart();
 
-    //Down montly
+    //montly payment
     $scope.loadMontlyChart = loadMontlyChart;
     $scope.changeMontlyPoint = changeMontlyPoint;
     $scope.montlyChart = null;
@@ -299,8 +281,8 @@ app.controller('MainCtrl', function ($scope, $rootScope, $timeout, $modal) {
     $scope.montly_slider_callbacks = {
         value: 0,
         options: {
-            floor: 0,
-            ceil: 200,
+            floor: $scope.montlyStart,
+            ceil: $scope.montlyEnd,
             onStart: function () {
                 $scope.montlyData.start = 0;
             },
@@ -366,8 +348,8 @@ app.controller('MainCtrl', function ($scope, $rootScope, $timeout, $modal) {
 
             // the value axis
             yAxis: {
-                min: 0,
-                max: 200,
+                min: $scope.montlyStart,
+                max: $scope.montlyEnd,
 
                 minorTickInterval: 'auto',
                 minorTickWidth: 1,
@@ -379,26 +361,18 @@ app.controller('MainCtrl', function ($scope, $rootScope, $timeout, $modal) {
                 tickWidth: 2,
                 tickPosition: 'inside',
                 tickLength: 10,
-                tickColor: '#666',
+                tickColor: '#fff',
                 labels: {
                     step: 2,
                     rotation: 'auto'
                 },
                 title: {
-                    text: 'km/h'
+                    text: ''
                 },
                 plotBands: [{
-                    from: 0,
-                    to: 120,
-                    color: '#55BF3B' // green
-                }, {
-                    from: 120,
-                    to: 160,
-                    color: '#DDDF0D' // yellow
-                }, {
-                    from: 160,
-                    to: 200,
-                    color: '#DF5353' // red
+                    from: $scope.montlyStart,
+                    to: $scope.montlyEnd,
+                    color: '#000' // green
                 }]
             },
 
@@ -420,13 +394,27 @@ app.controller('MainCtrl', function ($scope, $rootScope, $timeout, $modal) {
         });
     }
 
-    function changeMontlyPoint() {
-      var point = $scope.montlyChart.series[0].points[0];
-      $scope.montlyData.change = $scope.montly_slider_callbacks.value;
-      point.update($scope.montly_slider_callbacks.value);
+    $scope.loadMontlyChart();
+
+    // process
+    function changePaymentPoint() {
+      var point = $scope.paymentChart.series[0].points[0];
+      $scope.paymentData.change = $scope.payment_slider_callbacks.value;
+      point.update($scope.payment_slider_callbacks.value);
     }
 
-    $scope.loadMontlyChart();
+    function changeTermPoint(newVal) {
+      var point = $scope.termChart.series[0].points[0];
+      $scope.termData.change = newVal ? newVal : $scope.term_slider_callbacks.value;
+      point.update($scope.term_slider_callbacks.value);
+    }
+
+    function changeMontlyPoint(newVal) {
+      var point = $scope.montlyChart.series[0].points[0];
+      $scope.montlyData.change = $scope.montly_slider_callbacks.value;
+      $scope.changeTermPoint($scope.termEnd * .20);
+      point.update($scope.montly_slider_callbacks.value);
+    }
 });
 
 </script>
@@ -450,7 +438,7 @@ app.controller('MainCtrl', function ($scope, $rootScope, $timeout, $modal) {
       <!-- term -->
       <article class="col-sm-4">
         <div id="montlycontainer" style="min-width: 310px; max-width: 400px; height: 300px; margin: 0 auto"></div>
-         <p>Montly Payment: {{ termData.change }}</p>
+         <p>Montly Payment: {{ montlyData.change }}</p>
          <rzslider rz-slider-model="montly_slider_callbacks.value" rz-slider-options="montly_slider_callbacks.options"></rzslider>
      </article>
      </div>
